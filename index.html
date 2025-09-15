@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para Yanina 💛🌸</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: radial-gradient(ellipse at top, #fff9c4, #ffeaa7, #fdcb6e);
+        min-height: 100vh;
+        overflow-x: hidden;
+        font-family: "Inter", sans-serif;
+        position: relative;
+      }
+
+      /* Partículas flotantes de fondo */
+      .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .particle {
+        position: absolute;
+        background: radial-gradient(
+          circle,
+          rgba(255, 213, 79, 0.6),
+          rgba(255, 213, 79, 0.1)
+        );
+        border-radius: 50%;
+        pointer-events: none;
+        animation: float 8s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.3;
+        }
+        25% {
+          transform: translateY(-20px) rotate(90deg);
+          opacity: 0.6;
+        }
+        50% {
+          transform: translateY(-40px) rotate(180deg);
+          opacity: 0.4;
+        }
+        75% {
+          transform: translateY(-20px) rotate(270deg);
+          opacity: 0.6;
+        }
+      }
+
+      /* Container principal */
+      .main-container {
+        position: relative;
+        z-index: 2;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      /* Header romántico */
+      .romantic-header {
+        text-align: center;
+        margin-bottom: 30px;
+        animation: fadeInDown 1.5s ease-out;
+      }
+
+      .main-title {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        color: #d17f00;
+        font-weight: 700;
+        text-shadow: 0 4px 8px rgba(209, 127, 0, 0.3);
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .main-title::before {
+        content: "✨";
+        position: absolute;
+        left: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        animation: sparkle 2s infinite;
+      }
+
+      .main-title::after {
+        content: "✨";
+        position: absolute;
+        right: -50px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1.5rem;
+        animation: sparkle 2s infinite 0.5s;
+      }
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 1;
+          transform: translateY(-50%) scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: translateY(-50%) scale(1.2);
+        }
+      }
+
+      .romantic-subtitle {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        color: #8b4513;
+        line-height: 1.6;
+        max-width: 500px;
+        margin: 0 auto;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* RAMO DE FLORES PRINCIPAL */
+      .bouquet-container {
+        position: relative;
+        margin: 40px 0;
+        animation: fadeInUp 2s ease-out 0.5s both;
+        transform-style: preserve-3d;
+      }
+
+      .bouquet {
+        position: relative;
+        display: inline-block;
+        animation: gentleSway 4s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(255, 193, 7, 0.3));
+      }
+
+      @keyframes gentleSway {
+        0%,
+        100% {
+          transform: rotate(-2deg) translateY(0);
+        }
+        50% {
+          transform: rotate(2deg) translateY(-5px);
+        }
+      }
+
+      /* Tallo del ramo */
+      .stem {
+        position: absolute;
+        bottom: -80px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 8px;
+        height: 100px;
+        background: linear-gradient(to bottom, #8bc34a, #4caf50);
+        border-radius: 4px;
+        z-index: 1;
+      }
+
+      .stem::after {
+        content: "";
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 25px;
+        height: 40px;
+        background: linear-gradient(45deg, #8bc34a, #66bb6a);
+        border-radius: 0 0 50% 50%;
+        clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+      }
+
+      /* Flores individuales del ramo */
+      .flower-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+      }
+
+      .single-flower {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        display: inline-block;
+        animation: flowerBreathe 3s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(255, 193, 7, 0.4));
+        transform-origin: center bottom;
+      }
+
+      .single-flower:nth-child(1) {
+        animation-delay: 0s;
+        transform: rotate(-15deg) scale(0.9);
+      }
+
+      .single-flower:nth-child(2) {
+        animation-delay: 0.5s;
+        transform: rotate(-8deg) scale(1.1);
+        z-index: 2;
+      }
+
+      .single-flower:nth-child(3) {
+        animation-delay: 1s;
+        transform: rotate(0deg) scale(1.2);
+        z-index: 3;
+      }
+
+      .single-flower:nth-child(4) {
+        animation-delay: 1.5s;
+        transform: rotate(8deg) scale(1.1);
+        z-index: 2;
+      }
+
+      .single-flower:nth-child(5) {
+        animation-delay: 2s;
+        transform: rotate(15deg) scale(0.9);
+      }
+
+      @keyframes flowerBreathe {
+        0%,
+        100% {
+          transform: scale(var(--scale, 1)) rotate(var(--rotation, 0deg))
+            translateY(0);
+        }
+        50% {
+          transform: scale(calc(var(--scale, 1) * 1.1))
+            rotate(var(--rotation, 0deg)) translateY(-3px);
+        }
+      }
+
+      /* Pétalos que caen del ramo */
+      .petal {
+        position: absolute;
+        font-size: 12px;
+        color: #ffc107;
+        animation: petalFall linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes petalFall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(200px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Brillo mágico alrededor del ramo */
+      .bouquet-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 150%;
+        height: 150%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 193, 7, 0.2) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        animation: glow 3s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+
+      @keyframes glow {
+        from {
+          opacity: 0.3;
+          transform: translate(-50%, -50%) scale(1);
+        }
+        to {
+          opacity: 0.8;
+          transform: translate(-50%, -50%) scale(1.2);
+        }
+      }
+
+      /* BOTÓN PRINCIPAL DE JUEGO */
+      .main-game-button {
+        position: relative;
+        padding: 25px 50px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        border: none;
+        border-radius: 50px;
+        font-size: clamp(1.2rem, 3vw, 1.5rem);
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        margin: 30px 0;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        animation: pulseGame 2s ease-in-out infinite;
+        font-family: "Inter", sans-serif;
+      }
+
+      @keyframes pulseGame {
+        0%,
+        100% {
+          box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+        50% {
+          box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6),
+            0 0 0 10px rgba(255, 107, 107, 0.1);
+        }
+      }
+
+      .main-game-button::before {
+        content: "🎮";
+        font-size: 1.8rem;
+        margin-right: 15px;
+        display: inline-block;
+        animation: gameIconBounce 2s ease-in-out infinite;
+      }
+
+      @keyframes gameIconBounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        25% {
+          transform: translateY(-3px) rotate(-5deg);
+        }
+        75% {
+          transform: translateY(-3px) rotate(5deg);
+        }
+      }
+
+      .main-game-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        background: linear-gradient(135deg, #ee5a52, #d63031);
+        box-shadow: 0 20px 40px rgba(255, 107, 107, 0.6);
+      }
+
+      .main-game-button:active {
+        transform: translateY(-2px) scale(1.02);
+      }
+
+      /* Botones secundarios más pequeños */
+      .secondary-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        max-width: 800px;
+        margin-top: 30px;
+      }
+
+      .btn-secondary {
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #ffd54f, #ffb300);
+        border: none;
+        border-radius: 20px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #5a3600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 179, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #ffb300, #ff8f00);
+        color: white;
+        box-shadow: 0 8px 20px rgba(255, 179, 0, 0.4);
+      }
+
+      /* Flores cayendo mejoradas */
+      .flower {
+        position: fixed;
+        top: -50px;
+        font-size: clamp(15px, 3vw, 25px);
+        pointer-events: none;
+        z-index: 10;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+
+      .flower.fall1 {
+        animation: fall1 linear forwards;
+      }
+      .flower.fall2 {
+        animation: fall2 linear forwards;
+      }
+      .flower.fall3 {
+        animation: fall3 linear forwards;
+      }
+
+      @keyframes fall1 {
+        from {
+          transform: translateY(-50px) rotate(0deg);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(calc(100vh + 50px)) rotate(360deg);
+          opacity: 0.2;
+        }
+      }
+
+      @keyframes fall2 {
+        from {
+          transform: translateY(-50px) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(50vh) rotate(180deg) translateX(30px);
+          opacity: 0.8;
+        }
+        to {
+          transform: translateY(calc(100vh + 50px)) rotate(360deg)
+            translateX(-30px);
+          opacity: 0.1;
+        }
+      }
+
+      @keyframes fall3 {
+        from {
+          transform: translateY(-50px) rotate(0deg);
+          opacity: 1;
+        }
+        30% {
+          transform: translateY(30vh) rotate(120deg) translateX(-20px);
+          opacity: 0.9;
+        }
+        70% {
+          transform: translateY(70vh) rotate(240deg) translateX(20px);
+          opacity: 0.6;
+        }
+        to {
+          transform: translateY(calc(100vh + 50px)) rotate(360deg);
+          opacity: 0.1;
+        }
+      }
+
+      /* Animaciones de entrada */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .secondary-buttons {
+        animation: fadeInUp 2s ease-out 1s both;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .main-title::before,
+        .main-title::after {
+          display: none;
+        }
+
+        .secondary-buttons {
+          max-width: 350px;
+        }
+
+        .btn-secondary {
+          font-size: 0.85rem;
+          padding: 10px 16px;
+        }
+
+        .main-game-button {
+          padding: 20px 40px;
+          font-size: 1.1rem;
+        }
+
+        .bouquet-container {
+          margin: 25px 0;
+        }
+      }
+
+      /* Efecto de ondas */
+      .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+      }
+
+      @keyframes ripple-animation {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Partículas de fondo -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Contenido principal -->
+    <div class="main-container">
+      <header class="romantic-header">
+        <h1 class="main-title">Para mi Yanina querida 💛</h1>
+        <p class="romantic-subtitle">
+          Con amor te regalo estas flores amarillas virtuales que nunca se
+          marchitarán
+        </p>
+      </header>
+
+      <!-- RAMO DE FLORES PRINCIPAL -->
+      <div class="bouquet-container">
+        <div class="bouquet-glow"></div>
+        <div class="bouquet">
+          <div class="flower-group">
+            <span class="single-flower" style="--scale: 0.9; --rotation: -15deg"
+              >🌼</span
+            >
+            <span class="single-flower" style="--scale: 1.1; --rotation: -8deg"
+              >🌻</span
+            >
+            <span class="single-flower" style="--scale: 1.2; --rotation: 0deg"
+              >🌼</span
+            >
+            <span class="single-flower" style="--scale: 1.1; --rotation: 8deg"
+              >🌻</span
+            >
+            <span class="single-flower" style="--scale: 0.9; --rotation: 15deg"
+              >🌼</span
+            >
+          </div>
+          <div class="stem"></div>
+        </div>
+      </div>
+
+      <!-- BOTÓN PRINCIPAL DE JUEGO -->
+      <button
+        class="main-game-button"
+        onclick="window.location.href='quiz.html'"
+      >
+        ¡Juguemos Juntos!
+      </button>
+
+      <!-- Botones secundarios -->
+      <div class="secondary-buttons">
+        <button class="btn-secondary" onclick="createRipple(event)">
+          <span>💖</span> Quiz del amor
+        </button>
+        <button class="btn-secondary" onclick="createRipple(event)">
+          <span>🎡</span> Ruleta de premios
+        </button>
+        <button
+          class="btn-secondary"
+          onclick="createRipple(event); window.location.href='recuerdos.html?autoplay=true'"
+        >
+          <span>📸</span> Nuestros recuerdos
+        </button>
+
+        <button class="btn-secondary" onclick="createRipple(event)">
+          <span>💌</span> Cartas para ti
+        </button>
+        <button class="btn-secondary" onclick="createRipple(event)">
+          <span>🌙</span> Rincón secreto
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Crear partículas de fondo
+      function createParticles() {
+        const particlesContainer = document.getElementById("particles");
+        const particleCount = 12;
+
+        for (let i = 0; i < particleCount; i++) {
+          const particle = document.createElement("div");
+          particle.className = "particle";
+
+          const size = Math.random() * 4 + 2;
+          particle.style.width = size + "px";
+          particle.style.height = size + "px";
+          particle.style.left = Math.random() * 100 + "%";
+          particle.style.top = Math.random() * 100 + "%";
+          particle.style.animationDelay = Math.random() * 8 + "s";
+          particle.style.animationDuration = Math.random() * 10 + 8 + "s";
+
+          particlesContainer.appendChild(particle);
+        }
+      }
+
+      // Crear pétalos que caen del ramo
+      function createPetalsFromBouquet() {
+        const bouquet = document.querySelector(".bouquet");
+        const rect = bouquet.getBoundingClientRect();
+
+        for (let i = 0; i < 3; i++) {
+          setTimeout(() => {
+            const petal = document.createElement("div");
+            petal.className = "petal";
+            petal.textContent = "🌸";
+            petal.style.left =
+              rect.left + rect.width / 2 + (Math.random() - 0.5) * 50 + "px";
+            petal.style.top = rect.top + rect.height / 2 + "px";
+            petal.style.animationDuration = Math.random() * 2 + 2 + "s";
+            petal.style.position = "fixed";
+            petal.style.zIndex = "5";
+
+            document.body.appendChild(petal);
+
+            setTimeout(() => {
+              petal.remove();
+            }, 4000);
+          }, i * 500);
+        }
+      }
+
+      // Crear flores cayendo
+      function createFlower() {
+        const flowers = ["🌼", "🌻", "🌸", "🌺"];
+        const animations = ["fall1", "fall2", "fall3"];
+
+        const flower = document.createElement("div");
+        flower.className = `flower ${
+          animations[Math.floor(Math.random() * animations.length)]
+        }`;
+        flower.textContent =
+          flowers[Math.floor(Math.random() * flowers.length)];
+        flower.style.left = Math.random() * window.innerWidth + "px";
+        flower.style.animationDuration = Math.random() * 4 + 3 + "s";
+
+        document.body.appendChild(flower);
+
+        setTimeout(() => {
+          flower.remove();
+        }, 8000);
+      }
+
+      // Efecto de ondas al hacer click
+      function createRipple(event) {
+        const button = event.currentTarget;
+        const ripple = document.createElement("span");
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+
+        ripple.className = "ripple";
+        ripple.style.width = ripple.style.height = size + "px";
+        ripple.style.left = x + "px";
+        ripple.style.top = y + "px";
+
+        button.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      }
+
+      // Inicializar efectos
+      document.addEventListener("DOMContentLoaded", function () {
+        createParticles();
+
+        // Crear flores cayendo periódicamente
+        setInterval(createFlower, 800);
+
+        // Crear pétalos del ramo periódicamente
+        setInterval(createPetalsFromBouquet, 3000);
+
+        // Crear algunas flores iniciales
+        for (let i = 0; i < 3; i++) {
+          setTimeout(createFlower, i * 300);
+        }
+
+        // Efecto especial al pasar el mouse sobre el ramo
+        const bouquet = document.querySelector(".bouquet");
+        bouquet.addEventListener("mouseenter", function () {
+          // Crear burst de pétalos
+          createPetalsFromBouquet();
+
+          // Añadir clase para efecto especial
+          this.style.animation =
+            "gentleSway 1s ease-in-out, pulseGame 0.5s ease-out";
+
+          setTimeout(() => {
+            this.style.animation = "gentleSway 4s ease-in-out infinite";
+          }, 1500);
+        });
+      });
+    </script>
+  </body>
+</html>

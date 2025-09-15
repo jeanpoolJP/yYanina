@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestros Recuerdos ❤️</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(-45deg, #ff9a9e, #fecfef, #fecfef, #ff9a9e);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 182, 193, 0.3);
+        font-size: 20px;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10%,
+        90% {
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(-10px) rotate(180deg);
+        }
+      }
+
+      .header-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 50px 50px;
+        margin-bottom: 50px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .main-title {
+        font-family: "Dancing Script", cursive;
+        font-size: 4rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e, #ffa8a8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        font-weight: 300;
+      }
+
+      .music-controls {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 50px;
+        padding: 10px 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .music-btn {
+        background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50px;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .music-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+      }
+
+      .gallery-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .memory-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+        margin-bottom: 40px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .memory-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      .memory-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .memory-card:hover .memory-image {
+        transform: scale(1.1);
+      }
+
+      .memory-content {
+        padding: 30px;
+        text-align: center;
+      }
+
+      .memory-date {
+        color: #ff6b6b;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .memory-title {
+        font-family: "Dancing Script", cursive;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .memory-description {
+        color: #666;
+        line-height: 1.6;
+        font-size: 1rem;
+      }
+
+      .photo-modal .modal-content {
+        background: transparent;
+        border: none;
+      }
+
+      .modal-image {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        color: #ff6b6b;
+        padding: 12px 20px;
+        border-radius: 50px;
+        font-size: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .back-btn:hover {
+        background: #ff6b6b;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .love-quote {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 182, 193, 0.3),
+          rgba(255, 192, 203, 0.3)
+        );
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        margin: 60px auto;
+        max-width: 800px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .quote-text {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        color: #ff6b6b;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 20px;
+      }
+
+      .quote-author {
+        font-size: 1.1rem;
+        color: #666;
+        font-weight: 600;
+      }
+
+      @media (max-width: 768px) {
+        .main-title {
+          font-size: 2.5rem;
+        }
+
+        .memory-card {
+          margin-bottom: 30px;
+        }
+
+        .memory-content {
+          padding: 20px;
+        }
+
+        .quote-text {
+          font-size: 1.8rem;
+        }
+      }
+
+      .masonry-grid {
+        column-count: 3;
+        column-gap: 30px;
+      }
+
+      @media (max-width: 992px) {
+        .masonry-grid {
+          column-count: 2;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .masonry-grid {
+          column-count: 1;
+        }
+      }
+
+      .memory-card {
+        break-inside: avoid;
+        display: inline-block;
+        width: 100%;
+      }
+
+      .sparkle {
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      @keyframes sparkle {
+        0% {
+          transform: scale(0) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1) rotate(180deg);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0) rotate(360deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Corazones flotantes -->
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Botón de regreso -->
+    <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+      <i class="fas fa-arrow-left"></i>
+      Regresar
+    </a>
+
+    <!-- Controles de música -->
+    <div class="music-controls animate__animated animate__fadeInRight">
+      <button id="musicBtn" class="music-btn">
+        <i class="fas fa-music"></i>
+        <span id="musicStatus">Reproducir</span>
+      </button>
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="backgroundMusic" loop>
+      <source src="musicaRecuerdos.mp3" type="audio/mpeg" />
+      <!-- Nota: En un entorno real, deberías usar tu propio archivo de audio -->
+    </audio>
+
+    <!-- Header -->
+    <div class="header-section">
+      <div class="container py-5">
+        <div class="text-center">
+          <h1 class="main-title animate__animated animate__fadeInDown">
+            <i class="fas fa-heart text-danger"></i>
+            Nuestros Recuerdos
+            <i class="fas fa-heart text-danger"></i>
+          </h1>
+          <p
+            class="subtitle animate__animated animate__fadeInUp animate__delay-1s"
+          >
+            Cada momento contigo es un tesoro que guardo en mi corazón
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Galería de recuerdos -->
+    <div class="gallery-container">
+      <div class="masonry-grid">
+        <!-- Recuerdo 1 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="100"
+        >
+          <img
+            src="img/primera_cita.jpg"
+            alt="Primer encuentro"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Primera Cita')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">6 de Julio, 2025</div>
+            <h3 class="memory-title">Nuestra Primera Cita</h3>
+            <p class="memory-description">
+              El día que cambió mi vida para siempre. Cuando te vi por primera
+              vez, supe que habías llegado para quedarte en mi corazón.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 2 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="200"
+        >
+          <img
+            src="img/foto_playa41.jpg"
+            alt="Primera cita"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Paseo en la Playa')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">23 de Julio, 2025</div>
+            <h3 class="memory-title">Paseo en la Playa</h3>
+            <p class="memory-description">
+              Nervios, sonrisas y mariposas en el estómago. Ese café se
+              convirtió en horas de conversación y el inicio de nuestra hermosa
+              historia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 3 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="300"
+        >
+          <img
+            src="img/fiesta-eli.jpg"
+            alt="Fiesta de Eli"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Fiesta de Eli')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">21 de Junio, 2025</div>
+            <h3 class="memory-title">Fiesta de Eli</h3>
+            <p class="memory-description">
+              Caminar de tu mano por la orilla del mar, viendo el atardecer
+              juntos. Ese momento quedará grabado en mi alma para siempre.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 4 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="400"
+        >
+          <img
+            src="img/baile_pareja.jpg"
+            alt="Primer baile como Pareja"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Primer baile como Pareja')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">3 de Agosto, 2025</div>
+            <h3 class="memory-title">Primer baile como Pareja</h3>
+            <p class="memory-description">
+              Una noche mágica llena de velas, buena comida y tu hermosa sonrisa
+              iluminando todo a mi alrededor.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 5 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="500"
+        >
+          <img
+            src="img/foto_ancon2.jpg"
+            alt="Salida a Ancón"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Salida a Ancón')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">24 de Agosto, 2025</div>
+            <h3 class="memory-title">Salida a Ancón</h3>
+            <p class="memory-description">
+              Aventuras, risas y descubrir el mundo a tu lado. Cada lugar se
+              vuelve especial cuando lo compartimos juntos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 6 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="600"
+        >
+          <img
+            src="img/foto_parque.jpg"
+            alt="Momento especial"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Un Momento Especial')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">09 de Julio, 2025</div>
+            <h3 class="memory-title">Un Momento Especial</h3>
+            <p class="memory-description">
+              Simplemente nosotros, disfrutando de la simplicidad de estar
+              juntos. Los mejores momentos no necesitan grandes gestos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 7 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="600"
+        >
+          <img
+            src="img/presentacion.jpg"
+            alt="Presentación como Pareja"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Presentación como Pareja')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">30 de Agosto, 2025</div>
+            <h3 class="memory-title">Presentación como Pareja</h3>
+            <p class="memory-description">
+              Simplemente nosotros, disfrutando de la simplicidad de estar
+              juntos. Los mejores momentos no necesitan grandes gestos.
+            </p>
+          </div>
+        </div>
+
+        <!-- Recuerdo 8 -->
+        <div
+          class="memory-card animate__animated animate__fadeInUp"
+          data-aos-delay="600"
+        >
+          <img
+            src="img/foto_ensayo.jpg"
+            alt="Un Ensayo Cualquiera"
+            class="memory-image"
+            data-bs-toggle="modal"
+            data-bs-target="#photoModal"
+            onclick="showPhoto(this.src, 'Un Ensayo Cualquiera')"
+          />
+          <div class="memory-content">
+            <div class="memory-date">14 de Agosto, 2025</div>
+            <h3 class="memory-title">Un Ensayo Cualquiera</h3>
+            <p class="memory-description">
+              Simplemente nosotros, disfrutando de la simplicidad de estar
+              juntos. Los mejores momentos no necesitan grandes gestos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase de amor -->
+      <div
+        class="love-quote animate__animated animate__fadeIn animate__delay-2s"
+      >
+        <p class="quote-text">
+          "En cada fotografía veo reflejado el amor que siento por ti, y en cada
+          recuerdo encuentro una razón más para amarte."
+        </p>
+        <p class="quote-author">- Con todo mi amor ❤️</p>
+      </div>
+    </div>
+
+    <!-- Modal para ver fotos -->
+    <div class="modal fade photo-modal" id="photoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <button
+              type="button"
+              class="btn-close position-absolute top-0 end-0 m-3 z-index-2 bg-white rounded-circle p-2"
+              data-bs-dismiss="modal"
+              style="z-index: 1060"
+            ></button>
+            <img id="modalImage" src="" alt="" class="modal-image" />
+            <div class="text-center p-3">
+              <h4
+                id="modalTitle"
+                class="text-white"
+                style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)"
+              ></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Sistema de música de fondo
+      const audio = document.getElementById("backgroundMusic");
+      const musicBtn = document.getElementById("musicBtn");
+      const musicStatus = document.getElementById("musicStatus");
+      let isPlaying = false;
+
+      // Auto-reproducir si viene del botón de la página principal
+      const urlParams = new URLSearchParams(window.location.search);
+      const autoplay = urlParams.get("autoplay");
+
+      if (autoplay === "true") {
+        setTimeout(() => {
+          playMusic();
+        }, 1000);
+      }
+
+      musicBtn.addEventListener("click", () => {
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+
+      function playMusic() {
+        audio
+          .play()
+          .then(() => {
+            isPlaying = true;
+            musicBtn.innerHTML =
+              '<i class="fas fa-pause"></i> <span>Pausar</span>';
+            musicBtn.style.background =
+              "linear-gradient(45deg, #28a745, #20c997)";
+          })
+          .catch((err) => {
+            console.log("Error al reproducir: ", err);
+          });
+      }
+
+      function pauseMusic() {
+        audio.pause();
+        isPlaying = false;
+        musicBtn.innerHTML =
+          '<i class="fas fa-music"></i> <span>Reproducir</span>';
+        musicBtn.style.background = "linear-gradient(45deg, #ff6b6b, #ff8e8e)";
+      }
+
+      // Función para mostrar foto en modal
+      function showPhoto(src, title) {
+        document.getElementById("modalImage").src = src;
+        document.getElementById("modalTitle").textContent = title;
+      }
+
+      // Crear corazones flotantes
+      function createFloatingHearts() {
+        const heartsContainer = document.getElementById("heartsContainer");
+
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.className = "heart";
+          heart.innerHTML = "❤️";
+          heart.style.left = Math.random() * 100 + "%";
+          heart.style.animationDuration = Math.random() * 4 + 4 + "s";
+          heart.style.fontSize = Math.random() * 20 + 15 + "px";
+
+          heartsContainer.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 8000);
+        }, 2000);
+      }
+
+      // Efecto de partículas al hacer clic
+      document.addEventListener("click", (e) => {
+        createSparkles(e.clientX, e.clientY);
+      });
+
+      function createSparkles(x, y) {
+        for (let i = 0; i < 6; i++) {
+          const sparkle = document.createElement("div");
+          sparkle.className = "sparkle";
+          sparkle.innerHTML = "✨";
+          sparkle.style.left = x + "px";
+          sparkle.style.top = y + "px";
+          sparkle.style.animation = `sparkle 1s ease-out forwards`;
+          sparkle.style.transform = `translate(${
+            (Math.random() - 0.5) * 100
+          }px, ${(Math.random() - 0.5) * 100}px)`;
+
+          document.body.appendChild(sparkle);
+
+          setTimeout(() => {
+            sparkle.remove();
+          }, 1000);
+        }
+      }
+
+      // Inicializar efectos
+      createFloatingHearts();
+
+      // Animación de entrada escalonada para las tarjetas
+      window.addEventListener("load", () => {
+        const cards = document.querySelectorAll(".memory-card");
+        cards.forEach((card, index) => {
+          setTimeout(() => {
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+          }, index * 200);
+        });
+      });
+
+      // Efecto parallax suave
+      window.addEventListener("scroll", () => {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+
+        document.querySelector(
+          ".floating-hearts"
+        ).style.transform = `translateY(${rate}px)`;
+      });
+    </script>
+  </body>
+</html>
