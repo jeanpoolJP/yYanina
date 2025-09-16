@@ -9,24 +9,24 @@ function getLimaTime() {
 }
 
 function calculateTimeUntilAnniversary() {
-  const limaTime = getLimaTime();
+  const now = new Date(); // hora local de tu PC
   let nextAnniversary;
 
-  // Si hoy es antes del día 11
-  if (limaTime.getDate() < 11) {
-    nextAnniversary = new Date(limaTime.getFullYear(), limaTime.getMonth(), 11);
-  }
-  // Si hoy es después del día 11
-  else if (limaTime.getDate() > 11) {
+  if (now.getDate() < 11) {
+    // Próximo 11 a las 00:00
+    nextAnniversary = new Date(now.getFullYear(), now.getMonth(), 11, 0, 0, 0);
+  } else if (now.getDate() > 11) {
+    // Próximo mes, día 11 a las 00:00
     nextAnniversary = new Date(
-      limaTime.getFullYear(),
-      limaTime.getMonth() + 1,
-      11
+      now.getFullYear(),
+      now.getMonth() + 1,
+      11,
+      0,
+      0,
+      0
     );
-  }
-  // Si hoy es día 11
-  else {
-    // Verificar si ya es el día 11
+  } else {
+    // Si hoy ya es 11
     return {
       days: 0,
       hours: 0,
@@ -36,22 +36,14 @@ function calculateTimeUntilAnniversary() {
     };
   }
 
-  // Calcular diferencia en milisegundos
-  const diffMs = nextAnniversary - limaTime;
+  const diffMs = nextAnniversary - now;
 
-  // Convertir a días, horas, minutos y segundos
   const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
 
-  return {
-    days,
-    hours,
-    minutes,
-    seconds,
-    isAnniversary: false,
-  };
+  return { days, hours, minutes, seconds, isAnniversary: false };
 }
 
 function formatTime(value) {
@@ -73,7 +65,7 @@ function updateCountdown() {
     minutesElement.textContent = "00";
     secondsElement.textContent = "00";
     messageElement.innerHTML =
-      "¡<strong>Hoy es nuestro aniversario!</strong> ¡Te amo! ❤️";
+      "¡<strong>Hoy es nuestro aniversario!</strong> ¡Te Quiero! ❤️";
   } else {
     daysElement.textContent = timeLeft.days;
     hoursElement.textContent = formatTime(timeLeft.hours);
