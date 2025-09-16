@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rompecabezas Ultra Rápido</title>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        color: #fff;
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        padding: 25px;
+        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 15px;
+      }
+
+      h1 {
+        color: #fff;
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        font-weight: 800;
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.3rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .game-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+      }
+
+      .puzzle-area {
+        flex: 1;
+        min-width: 320px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+        min-height: 520px;
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .puzzle-board {
+        width: 100%;
+        height: 460px;
+        background: rgba(0, 0, 0, 0.2);
+        border: 3px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .puzzle-pieces {
+        flex: 1;
+        min-width: 320px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        align-content: flex-start;
+        min-height: 520px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .puzzle-piece {
+        width: 90px;
+        height: 90px;
+        background-size: 360px 360px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-radius: 6px;
+        cursor: grab;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.15s, box-shadow 0.15s, z-index 0.15s;
+        position: relative;
+        z-index: 1;
+        will-change: transform;
+      }
+
+      .puzzle-piece:active {
+        cursor: grabbing;
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        z-index: 100;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 25px 0;
+        flex-wrap: wrap;
+      }
+
+      button {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 50px;
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      button:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      #reset-btn {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+      }
+
+      #hint-btn {
+        background: linear-gradient(135deg, #f39c12, #d35400);
+      }
+
+      #complete-btn {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 20px 0;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px 25px;
+        border-radius: 10px;
+        text-align: center;
+        min-width: 150px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 5px;
+      }
+
+      .completed-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(46, 204, 113, 0.95);
+        color: white;
+        padding: 30px 50px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 2.2rem;
+        font-weight: 700;
+        display: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        animation: pulse 1.5s infinite;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        50% {
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      .dropzone {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border: 2px dashed rgba(52, 152, 219, 0.7);
+        border-radius: 6px;
+        background: rgba(52, 152, 219, 0.1);
+        transition: background 0.3s;
+      }
+
+      .dropzone.highlight {
+        background: rgba(243, 156, 18, 0.4);
+        border-color: rgba(243, 156, 18, 0.8);
+        animation: highlight 1s infinite;
+      }
+
+      @keyframes highlight {
+        0% {
+          opacity: 0.6;
+        }
+        50% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.6;
+        }
+      }
+
+      .piece-correct {
+        border: 2px solid #2ecc71;
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+      }
+
+      .difficulty-selector {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+      }
+
+      .difficulty-btn {
+        padding: 10px 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .difficulty-btn.active {
+        background: rgba(52, 152, 219, 0.5);
+        border-color: rgba(255, 255, 255, 0.7);
+      }
+
+      @media (max-width: 768px) {
+        .game-container {
+          flex-direction: column;
+        }
+
+        .puzzle-area,
+        .puzzle-pieces {
+          min-width: 100%;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .puzzle-piece {
+          width: 70px;
+          height: 70px;
+        }
+
+        .dropzone {
+          width: 70px;
+          height: 70px;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 12px;
+        height: 12px;
+        opacity: 0;
+        z-index: 1000;
+        border-radius: 2px;
+        animation: fall linear forwards;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-puzzle-piece"></i> Rompecabezas Ultra Rápido</h1>
+      <p class="subtitle">
+        Arrastra las piezas para completar la imagen. ¡Ahora con mejor
+        rendimiento!
+      </p>
+    </header>
+
+    <div class="stats">
+      <div class="stat-box">
+        <div class="stat-value" id="timer">00:00</div>
+        <div class="stat-label">Tiempo</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value" id="moves">0</div>
+        <div class="stat-label">Movimientos</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-value">
+          <span id="completed">0</span>/<span id="total">16</span>
+        </div>
+        <div class="stat-label">Piezas Colocadas</div>
+      </div>
+    </div>
+
+    <div class="difficulty-selector">
+      <button class="difficulty-btn active" data-size="4">Fácil (4x4)</button>
+      <button class="difficulty-btn" data-size="5">Medio (5x5)</button>
+      <button class="difficulty-btn" data-size="6">Difícil (6x6)</button>
+    </div>
+
+    <div class="controls">
+      <button id="start-btn"><i class="fas fa-play"></i> Comenzar</button>
+      <button id="hint-btn"><i class="fas fa-lightbulb"></i> Pista</button>
+      <button id="reset-btn"><i class="fas fa-redo"></i> Reiniciar</button>
+      <button id="complete-btn">
+        <i class="fas fa-check-circle"></i> Completar
+      </button>
+    </div>
+
+    <div class="container">
+      <div class="game-container">
+        <div class="puzzle-area">
+          <div class="puzzle-board" id="puzzle-board">
+            <div class="completed-message" id="completed-message">
+              <i class="fas fa-trophy"></i> ¡Completado!
+            </div>
+          </div>
+        </div>
+
+        <div class="puzzle-pieces" id="puzzle-pieces">
+          <!-- Las piezas del rompecabezas se generarán con JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Variables del juego
+        const board = document.getElementById("puzzle-board");
+        const piecesContainer = document.getElementById("puzzle-pieces");
+        const completedMessage = document.getElementById("completed-message");
+        const timerElement = document.getElementById("timer");
+        const movesElement = document.getElementById("moves");
+        const completedElement = document.getElementById("completed");
+        const totalElement = document.getElementById("total");
+        const startBtn = document.getElementById("start-btn");
+        const hintBtn = document.getElementById("hint-btn");
+        const resetBtn = document.getElementById("reset-btn");
+        const completeBtn = document.getElementById("complete-btn");
+        const difficultyButtons = document.querySelectorAll(".difficulty-btn");
+
+        let gameStarted = false;
+        let timerInterval;
+        let seconds = 0;
+        let minutes = 0;
+        let moves = 0;
+        let correctPieces = 0;
+        let totalPieces = 16;
+        let boardSize = 4; // 4x4 por defecto
+        let pieceSize = 90; // Tamaño de pieza en píxeles
+        let boardWidth = 360; // Ancho del tablero en píxeles
+
+        // Imagen para el rompecabezas
+        const imageUrl =
+          "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
+
+        // Inicializar el juego
+        function initGame() {
+          createPuzzlePieces();
+          createDropZones();
+          setupEventListeners();
+          updateStats();
+        }
+
+        // Crear las piezas del rompecabezas
+        function createPuzzlePieces() {
+          piecesContainer.innerHTML = "";
+
+          for (let i = 0; i < totalPieces; i++) {
+            const piece = document.createElement("div");
+            piece.className = "puzzle-piece";
+            piece.setAttribute("data-id", i);
+
+            // Calcular posición de fondo para cada pieza
+            const row = Math.floor(i / boardSize);
+            const col = i % boardSize;
+
+            piece.style.backgroundImage = `url(${imageUrl})`;
+            piece.style.backgroundPosition = `-${col * pieceSize}px -${
+              row * pieceSize
+            }px`;
+            piece.style.backgroundSize = `${boardWidth}px ${boardWidth}px`;
+
+            piecesContainer.appendChild(piece);
+          }
+        }
+
+        // Crear las zonas donde se colocarán las piezas
+        function createDropZones() {
+          board.innerHTML = "";
+          board.appendChild(completedMessage);
+
+          const boardPadding =
+            (460 - (pieceSize * boardSize + 10 * (boardSize - 1))) / 2;
+
+          for (let i = 0; i < totalPieces; i++) {
+            const dropzone = document.createElement("div");
+            dropzone.className = "dropzone";
+            dropzone.setAttribute("data-id", i);
+
+            // Calcular posición de la zona
+            const row = Math.floor(i / boardSize);
+            const col = i % boardSize;
+
+            dropzone.style.width = `${pieceSize}px`;
+            dropzone.style.height = `${pieceSize}px`;
+            dropzone.style.left = `${boardPadding + col * (pieceSize + 10)}px`;
+            dropzone.style.top = `${boardPadding + row * (pieceSize + 10)}px`;
+
+            board.appendChild(dropzone);
+          }
+        }
+
+        // Configurar los event listeners para los botones
+        function setupEventListeners() {
+          startBtn.addEventListener("click", startGame);
+          hintBtn.addEventListener("click", showHint);
+          resetBtn.addEventListener("click", resetGame);
+          completeBtn.addEventListener("click", completePuzzle);
+
+          // Configurar dificultad
+          difficultyButtons.forEach((btn) => {
+            btn.addEventListener("click", function () {
+              difficultyButtons.forEach((b) => b.classList.remove("active"));
+              this.classList.add("active");
+              changeDifficulty(parseInt(this.dataset.size));
+            });
+          });
+
+          // Configurar interact.js para las piezas con optimizaciones
+          interact(".puzzle-piece").draggable({
+            inertia: false, // Desactivar para mejor rendimiento
+            modifiers: [
+              interact.modifiers.restrictRect({
+                restriction: "body",
+                endOnly: false,
+              }),
+            ],
+            autoScroll: false, // Desactivar auto scroll para mejor rendimiento
+            listeners: {
+              start: function (event) {
+                event.target.style.transition = "none"; // Eliminar transición durante el arrastre
+              },
+              move: dragMove,
+              end: dragEnd,
+            },
+          });
+
+          // Configurar zonas de drop
+          interact(".dropzone").dropzone({
+            accept: ".puzzle-piece",
+            ondrop: handleDrop,
+            ondragenter: function (event) {
+              event.target.classList.add("highlight");
+            },
+            ondragleave: function (event) {
+              event.target.classList.remove("highlight");
+            },
+          });
+        }
+
+        // Mover la pieza durante el arrastre (optimizado)
+        function dragMove(event) {
+          const target = event.target;
+          const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+          const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+
+          // Usar transformaciones 3D para mejor rendimiento
+          target.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+          target.setAttribute("data-x", x);
+          target.setAttribute("data-y", y);
+        }
+
+        // Finalizar arrastre
+        function dragEnd(event) {
+          // Restaurar transición
+          event.target.style.transition =
+            "transform 0.15s, box-shadow 0.15s, z-index 0.15s";
+        }
+
+        // Manejar cuando una pieza se suelta en una zona
+        function handleDrop(event) {
+          const pieceId = event.relatedTarget.getAttribute("data-id");
+          const zoneId = event.target.getAttribute("data-id");
+
+          if (pieceId === zoneId) {
+            // Pieza correcta
+            const piece = event.relatedTarget;
+            const zone = event.target;
+
+            // Posicionar la pieza correctamente
+            const rect = zone.getBoundingClientRect();
+            const boardRect = board.getBoundingClientRect();
+
+            piece.style.position = "absolute";
+            piece.style.left = `${rect.left - boardRect.left}px`;
+            piece.style.top = `${rect.top - boardRect.top}px`;
+            piece.style.transform = "translate3d(0, 0, 0)";
+            piece.setAttribute("data-x", 0);
+            piece.setAttribute("data-y", 0);
+            piece.classList.add("piece-correct");
+
+            // Hacer la pieza no draggable
+            piece.draggable({ enabled: false });
+
+            // Ocultar la zona de drop
+            zone.style.visibility = "hidden";
+            zone.classList.remove("highlight");
+
+            // Incrementar contador de piezas correctas y movimientos
+            correctPieces++;
+            moves++;
+
+            // Actualizar estadísticas
+            updateStats();
+
+            // Verificar si el puzzle está completo
+            if (correctPieces === totalPieces) {
+              completePuzzle();
+            }
+          } else {
+            // Pieza incorrecta - incrementar contador de movimientos
+            moves++;
+            updateStats();
+          }
+        }
+
+        // Iniciar el juego
+        function startGame() {
+          if (!gameStarted) {
+            gameStarted = true;
+            startTimer();
+            startBtn.innerHTML = '<i class="fas fa-pause"></i> Pausar';
+          } else {
+            gameStarted = false;
+            clearInterval(timerInterval);
+            startBtn.innerHTML = '<i class="fas fa-play"></i> Continuar';
+          }
+        }
+
+        // Iniciar el temporizador
+        function startTimer() {
+          timerInterval = setInterval(function () {
+            seconds++;
+            if (seconds >= 60) {
+              minutes++;
+              seconds = 0;
+            }
+
+            timerElement.textContent = `${minutes
+              .toString()
+              .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+          }, 1000);
+        }
+
+        // Mostrar una pista
+        function showHint() {
+          // Encontrar la primera zona vacía y resaltarla
+          const dropzones = document.querySelectorAll(".dropzone");
+          for (let zone of dropzones) {
+            if (zone.style.visibility !== "hidden") {
+              zone.classList.add("highlight");
+              setTimeout(() => {
+                zone.classList.remove("highlight");
+              }, 2000);
+              break;
+            }
+          }
+        }
+
+        // Reiniciar el juego
+        function resetGame() {
+          gameStarted = false;
+          clearInterval(timerInterval);
+          seconds = 0;
+          minutes = 0;
+          moves = 0;
+          correctPieces = 0;
+          timerElement.textContent = "00:00";
+          startBtn.innerHTML = '<i class="fas fa-play"></i> Comenzar';
+          completedMessage.style.display = "none";
+
+          initGame();
+        }
+
+        // Completar el puzzle automáticamente
+        function completePuzzle() {
+          const pieces = document.querySelectorAll(".puzzle-piece");
+          const dropzones = document.querySelectorAll(".dropzone");
+
+          for (let i = 0; i < pieces.length; i++) {
+            const piece = pieces[i];
+            const zone = dropzones[i];
+
+            if (!piece.classList.contains("piece-correct")) {
+              const rect = zone.getBoundingClientRect();
+              const boardRect = board.getBoundingClientRect();
+
+              piece.style.position = "absolute";
+              piece.style.left = `${rect.left - boardRect.left}px`;
+              piece.style.top = `${rect.top - boardRect.top}px`;
+              piece.style.transform = "translate3d(0, 0, 0)";
+              piece.setAttribute("data-x", 0);
+              piece.setAttribute("data-y", 0);
+              piece.classList.add("piece-correct");
+              piece.draggable({ enabled: false });
+
+              zone.style.visibility = "hidden";
+            }
+          }
+
+          correctPieces = totalPieces;
+          completedMessage.style.display = "block";
+          clearInterval(timerInterval);
+          createConfetti();
+        }
+
+        // Cambiar dificultad
+        function changeDifficulty(size) {
+          boardSize = size;
+          totalPieces = size * size;
+
+          // Ajustar tamaño de piezas según la dificultad
+          if (size === 4) {
+            pieceSize = 90;
+            boardWidth = 360;
+          } else if (size === 5) {
+            pieceSize = 70;
+            boardWidth = 350;
+          } else if (size === 6) {
+            pieceSize = 55;
+            boardWidth = 330;
+          }
+
+          totalElement.textContent = totalPieces;
+          resetGame();
+        }
+
+        // Actualizar estadísticas
+        function updateStats() {
+          movesElement.textContent = moves;
+          completedElement.textContent = correctPieces;
+        }
+
+        // Crear efecto de confeti
+        function createConfetti() {
+          const colors = [
+            "#ff6b6b",
+            "#4ecdc4",
+            "#ffe66d",
+            "#9b59b6",
+            "#2ecc71",
+            "#3498db",
+            "#e74c3c",
+            "#1abc9c",
+          ];
+
+          for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.width = 5 + Math.random() * 10 + "px";
+            confetti.style.height = 5 + Math.random() * 10 + "px";
+            confetti.style.animation = `fall ${
+              1 + Math.random() * 5
+            }s linear forwards`;
+            document.body.appendChild(confetti);
+
+            // Eliminar el confeti después de la animación
+            setTimeout(() => {
+              confetti.remove();
+            }, 6000);
+          }
+        }
+
+        // Inicializar el juego al cargar la página
+        initGame();
+      });
+    </script>
+  </body>
+</html>
