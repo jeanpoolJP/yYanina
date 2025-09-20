@@ -1,23 +1,23 @@
 // Premios disponibles con colores vibrantes
 const prizes = [
   {
-    name: "Cena Romántica",
+    name: "Salida a Comer",
     description:
-      "Una cena mágica a la luz de las velas con tu comida favorita, música suave y toda mi atención para ti. Será una noche que recordaremos para siempre. 🕯️❤️",
+      "Una salida juntos a tu restaurante favorito, disfrutando de buena comida, risas y charlas que hacen que cada momento contigo sea especial. 🍽️🥂",
     icon: "fa-utensils",
     color: "#FF6B6B",
   },
   {
-    name: "Noche de Películas",
+    name: "Tarde de Películas",
     description:
-      "Maratón de tus películas favoritas acurrucados juntos, con palomitas caseras, tus dulces preferidos y muchos abrazos. El plan perfecto para una noche especial. 🎬🍿",
+      "Maratón de tus películas favoritas acurrucados juntos, con palomitas caseras, tus dulces preferidos y muchos abrazos. El plan perfecto para una tarde especial. 🎬🍿",
     icon: "fa-film",
     color: "#4ECDC4",
   },
   {
     name: "Masaje Relajante",
     description:
-      "Una hora completa de masajes relajantes con aceites aromáticos, música relajante y todo mi amor. Te vas a sentir como en las nubes. 💆‍♀️✨",
+      "Unos masajes relajantes con música que te guste y todo mi cariño. Te vas a sentir como en las nubes. 💆‍♀️✨",
     icon: "fa-spa",
     color: "#FFD166",
   },
@@ -29,16 +29,16 @@ const prizes = [
     color: "#F96E46",
   },
   {
-    name: "Un beso ",
+    name: "Un beso Romantico",
     description:
-      "Despertar con el aroma de un delicioso desayuno preparado con amor, servido en la cama con flores frescas y una sonrisa matutina. 💋☕",
-    icon: "fa-coffee",
+      "Un beso lleno de amor y ternura, de esos que hablan más que mil palabras y que se quedan grabados para siempre. 💋❤️",
+    icon: "fa-heart",
     color: "#9C51B6",
   },
   {
-    name: "Poema Personalizado",
+    name: "Carta Personalizada",
     description:
-      "Un poema único y especial escrito desde el corazón, donde cada verso refleje lo mucho que significas para mí. Palabras que saldrán del alma. 📝💖",
+      "Una carta única y especial escrita desde el corazón, donde cada palabra refleje lo mucho que significas para mí. Palabras que saldrán del alma. 📝💖",
     icon: "fa-pen-fancy",
     color: "#118AB2",
   },

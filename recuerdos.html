@@ -1,288 +1,194 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nuestros Recuerdos ❤️</title>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/recuerdos.css" />
-  </head>
-  <body>
-    <!-- Corazones flotantes -->
-    <div class="floating-hearts" id="heartsContainer"></div>
 
-    <!-- Botón de regreso -->
-    <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
-      <i class="fas fa-arrow-left"></i>
-      Regresar
-    </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nuestros Recuerdos ❤️</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/recuerdos.css" />
+</head>
 
-    <!-- Controles de música -->
-    <div class="music-controls animate__animated animate__fadeInRight">
-      <button id="musicBtn" class="music-btn">
-        <i class="fas fa-music"></i>
-        <span id="musicStatus">Reproducir</span>
-      </button>
+<body>
+  <!-- Corazones flotantes -->
+  <div class="floating-hearts" id="heartsContainer"></div>
+
+  <!-- Botón de regreso -->
+  <a href="index.html" class="back-btn animate__animated animate__fadeInLeft">
+    <i class="fas fa-arrow-left"></i>
+    Regresar
+  </a>
+
+  <!-- Controles de música -->
+  <div class="music-controls animate__animated animate__fadeInRight">
+    <button id="musicBtn" class="music-btn">
+      <i class="fas fa-music"></i>
+      <span id="musicStatus">Reproducir</span>
+    </button>
+  </div>
+
+  <!-- Audio de fondo -->
+  <audio id="backgroundMusic" loop>
+    <source src="music/musicaRecuerdos.mp3" type="audio/mpeg" />
+    <!-- Nota: En un entorno real, deberías usar tu propio archivo de audio -->
+  </audio>
+
+  <!-- Header -->
+  <div class="header-section">
+    <div class="container py-5">
+      <div class="text-center">
+        <h1 class="main-title animate__animated animate__fadeInDown">
+          <i class="fas fa-heart text-danger"></i>
+          Nuestros Recuerdos
+          <i class="fas fa-heart text-danger"></i>
+        </h1>
+        <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">
+          Cada momento contigo es un tesoro que guardo en mi corazón
+        </p>
+      </div>
     </div>
+  </div>
 
-    <!-- Audio de fondo -->
-    <audio id="backgroundMusic" loop>
-      <source src="music/musicaRecuerdos.mp3" type="audio/mpeg" />
-      <!-- Nota: En un entorno real, deberías usar tu propio archivo de audio -->
-    </audio>
-
-    <!-- Header -->
-    <div class="header-section">
-      <div class="container py-5">
-        <div class="text-center">
-          <h1 class="main-title animate__animated animate__fadeInDown">
-            <i class="fas fa-heart text-danger"></i>
-            Nuestros Recuerdos
-            <i class="fas fa-heart text-danger"></i>
-          </h1>
-          <p
-            class="subtitle animate__animated animate__fadeInUp animate__delay-1s"
-          >
-            Cada momento contigo es un tesoro que guardo en mi corazón
+  <!-- Galería de recuerdos -->
+  <div class="gallery-container">
+    <div class="masonry-grid">
+      <!-- Recuerdo 1 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="100">
+        <img src="img/fiesta-eli.jpg" alt="Fiesta de Eli" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Fiesta de Eli')" />
+        <div class="memory-content">
+          <div class="memory-date">21 de Junio, 2025</div>
+          <h3 class="memory-title">Fiesta de Eli</h3>
+          <p class="memory-description">
+            Nuestro primer encuentro juntos en la fiesta de Elizabeth, donde bailamos, reímos y compartimos momentos
+            únicos que marcaron el inicio de nuestra hermosa historia.
           </p>
         </div>
       </div>
-    </div>
 
-    <!-- Galería de recuerdos -->
-    <div class="gallery-container">
-      <div class="masonry-grid">
-        <!-- Recuerdo 1 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="100"
-        >
-          <img
-            src="img/primera_cita.jpg"
-            alt="Primer encuentro"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Primera Cita')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">6 de Julio, 2025</div>
-            <h3 class="memory-title">Nuestra Primera Cita</h3>
-            <p class="memory-description">
-              El día que cambió mi vida para siempre. Cuando te vi por primera
-              vez, supe que habías llegado para quedarte en mi corazón.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 2 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="200"
-        >
-          <img
-            src="img/foto_playa41.jpg"
-            alt="Primera cita"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Paseo en la Playa')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">23 de Julio, 2025</div>
-            <h3 class="memory-title">Paseo en la Playa</h3>
-            <p class="memory-description">
-              Nervios, sonrisas y mariposas en el estómago. Ese café se
-              convirtió en horas de conversación y el inicio de nuestra hermosa
-              historia.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 3 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="300"
-        >
-          <img
-            src="img/fiesta-eli.jpg"
-            alt="Fiesta de Eli"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Fiesta de Eli')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">21 de Junio, 2025</div>
-            <h3 class="memory-title">Fiesta de Eli</h3>
-            <p class="memory-description">
-              Caminar de tu mano por la orilla del mar, viendo el atardecer
-              juntos. Ese momento quedará grabado en mi alma para siempre.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 4 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="400"
-        >
-          <img
-            src="img/baile_pareja.jpg"
-            alt="Primer baile como Pareja"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Primer baile como Pareja')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">3 de Agosto, 2025</div>
-            <h3 class="memory-title">Primer baile como Pareja</h3>
-            <p class="memory-description">
-              Una noche mágica llena de velas, buena comida y tu hermosa sonrisa
-              iluminando todo a mi alrededor.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 5 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="500"
-        >
-          <img
-            src="img/foto_ancon2.jpg"
-            alt="Salida a Ancón"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Salida a Ancón')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">24 de Agosto, 2025</div>
-            <h3 class="memory-title">Salida a Ancón</h3>
-            <p class="memory-description">
-              Aventuras, risas y descubrir el mundo a tu lado. Cada lugar se
-              vuelve especial cuando lo compartimos juntos.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 6 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="600"
-        >
-          <img
-            src="img/foto_parque.jpg"
-            alt="Momento especial"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Un Momento Especial')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">09 de Julio, 2025</div>
-            <h3 class="memory-title">Un Momento Especial</h3>
-            <p class="memory-description">
-              Simplemente nosotros, disfrutando de la simplicidad de estar
-              juntos. Los mejores momentos no necesitan grandes gestos.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 7 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="600"
-        >
-          <img
-            src="img/presentacion.jpg"
-            alt="Presentación como Pareja"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Presentación como Pareja')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">30 de Agosto, 2025</div>
-            <h3 class="memory-title">Presentación como Pareja</h3>
-            <p class="memory-description">
-              Simplemente nosotros, disfrutando de la simplicidad de estar
-              juntos. Los mejores momentos no necesitan grandes gestos.
-            </p>
-          </div>
-        </div>
-
-        <!-- Recuerdo 8 -->
-        <div
-          class="memory-card animate__animated animate__fadeInUp"
-          data-aos-delay="600"
-        >
-          <img
-            src="img/foto_ensayo.jpg"
-            alt="Un Ensayo Cualquiera"
-            class="memory-image"
-            data-bs-toggle="modal"
-            data-bs-target="#photoModal"
-            onclick="showPhoto(this.src, 'Un Ensayo Cualquiera')"
-          />
-          <div class="memory-content">
-            <div class="memory-date">14 de Agosto, 2025</div>
-            <h3 class="memory-title">Un Ensayo Cualquiera</h3>
-            <p class="memory-description">
-              Simplemente nosotros, disfrutando de la simplicidad de estar
-              juntos. Los mejores momentos no necesitan grandes gestos.
-            </p>
-          </div>
+      <!-- Recuerdo 2 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="200">
+        <img src="img/primera_cita.jpg" alt="Primer encuentro" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Primera Cita')" />
+        <div class="memory-content">
+          <div class="memory-date">6 de Julio, 2025</div>
+          <h3 class="memory-title">Nuestra Primera Cita</h3>
+          <p class="memory-description">
+            Nuestra primera cita fue en Ancón, donde compartimos risas, miradas y nervios. Ese día quedó grabado para
+            siempre, porque allí nos dimos nuestro primer beso de amor.
+          </p>
         </div>
       </div>
 
-      <!-- Frase de amor -->
-      <div
-        class="love-quote animate__animated animate__fadeIn animate__delay-2s"
-      >
-        <p class="quote-text">
-          "En cada fotografía veo reflejado el amor que siento por ti, y en cada
-          recuerdo encuentro una razón más para amarte."
-        </p>
-        <p class="quote-author">- Con todo mi amor ❤️</p>
+      <!-- Recuerdo 3 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="300">
+        <img src="img/foto_parque.jpg" alt="Momento especial" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Un Momento Especial')" />
+        <div class="memory-content">
+          <div class="memory-date">09 de Julio, 2025</div>
+          <h3 class="memory-title">Un Momento Especial</h3>
+          <p class="memory-description">
+            Después del ensayo fuimos al parque, aún no éramos enamorados, pero nos volvimos a besar. Ese momento marcó
+            el inicio de lo nuestro, donde el amor empezaba a nacer de verdad.
+          </p>
+        </div>
       </div>
-    </div>
 
+      <!-- Recuerdo 4 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="400">
+        <img src="img/foto_playa41.jpg" alt="Paseo en la Playa" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Paseo en la Playa')" />
+        <div class="memory-content">
+          <div class="memory-date">23 de Julio, 2025</div>
+          <h3 class="memory-title">Paseo en la Playa</h3>
+          <p class="memory-description">
+            Un paseo grupal con nuestra fraternidad, pero lo especial fue compartirlo ya como enamorados. Risas,
+            momentos únicos y la felicidad de disfrutar juntos cada instante.
+          </p>
+        </div>
+      </div>
+
+      <!-- Recuerdo 5 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="500">
+        <img src="img/baile_pareja.jpg" alt="Primer baile como Pareja" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Primer baile como Pareja')" />
+        <div class="memory-content">
+          <div class="memory-date">3 de Agosto, 2025</div>
+          <h3 class="memory-title">Primer baile como Pareja</h3>
+          <p class="memory-description">
+            Fue nuestro primer baile de tinkus como pareja, una tarde especial donde disfrutamos cada paso juntos. Algo
+            simple, pero muy bonito que siempre voy a recordar contigo.
+          </p>
+        </div>
+      </div>
+
+      <!-- Recuerdo 6 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="600">
+        <img src="img/foto_ensayo.jpg" alt="Un Ensayo Cualquiera" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Un Ensayo Cualquiera')" />
+        <div class="memory-content">
+          <div class="memory-date">14 de Agosto, 2025</div>
+          <h3 class="memory-title">Un Ensayo Cualquiera</h3>
+          <p class="memory-description">
+            En un ensayo cualquiera nos tomamos esta foto. Un momento simple pero especial, porque hasta en lo cotidiano
+            contigo siempre se siente algo bonito y único.
+          </p>
+        </div>
+      </div>
+
+      <!-- Recuerdo 7 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="700">
+        <img src="img/foto_ancon2.jpg" alt="Salida a Ancón" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Salida a Ancón')" />
+        <div class="memory-content">
+          <div class="memory-date">24 de Agosto, 2025</div>
+          <h3 class="memory-title">Salida a Ancón</h3>
+          <p class="memory-description">
+            Fuimos a la playa de Ancón, al mismo lugar de nuestra primera cita. Esta vez como enamorados, recordando ese
+            inicio tan especial y disfrutando de estar juntos otra vez.
+          </p>
+        </div>
+      </div>
+
+      <!-- Recuerdo 8 -->
+      <div class="memory-card animate__animated animate__fadeInUp" data-aos-delay="800">
+        <img src="img/presentacion.jpg" alt="Presentación como Pareja" class="memory-image" data-bs-toggle="modal"
+          data-bs-target="#photoModal" onclick="showPhoto(this.src, 'Presentación como Pareja')" />
+        <div class="memory-content">
+          <div class="memory-date">30 de Agosto, 2025</div>
+          <h3 class="memory-title">Presentación como Pareja</h3>
+          <p class="memory-description">
+            Fue en una presentación de nuestro grupo, donde bailamos tinkus juntos. Disfrutamos mucho ese momento,
+            compartiendo el gusto de bailar y la alegría de estar unidos.
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <!-- Frase de amor -->
+    <div class="love-quote animate__animated animate__fadeIn animate__delay-2s">
+      <p class="quote-text">
+        "En cada fotografía veo reflejado el amor que siento por ti, y en cada
+        recuerdo encuentro una razón más para quererte."
+      </p>
+      <p class="quote-author">❤️ Jean Pool y Yanina ❤️</p>
+    </div>
     <!-- Modal para ver fotos -->
     <div class="modal fade photo-modal" id="photoModal" tabindex="-1">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-body p-0">
-            <button
-              type="button"
+            <button type="button"
               class="btn-close position-absolute top-0 end-0 m-3 z-index-2 bg-white rounded-circle p-2"
-              data-bs-dismiss="modal"
-              style="z-index: 1060"
-            ></button>
+              data-bs-dismiss="modal" style="z-index: 1060"></button>
             <img id="modalImage" src="" alt="" class="modal-image" />
             <div class="text-center p-3">
-              <h4
-                id="modalTitle"
-                class="text-white"
-                style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)"
-              ></h4>
+              <h4 id="modalTitle" class="text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8)"></h4>
             </div>
           </div>
         </div>
@@ -291,5 +197,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script src="js/recuerdos.js"></script>
-  </body>
+</body>
+
 </html>
